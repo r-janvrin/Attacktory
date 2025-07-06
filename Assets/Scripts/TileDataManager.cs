@@ -47,6 +47,6 @@ public class TileDataManager : MonoBehaviour
         TileBase clickedTile = environmentMap.GetTile(gridPosition);
 
         byte tyleType = dataFromTiles[clickedTile].tileType;
-        Debug.Log("Tile Type:" + tyleType);
+        Debug.Log("Tile Type:" + tyleType + "   Position: " + gridPosition);
     }
 }
