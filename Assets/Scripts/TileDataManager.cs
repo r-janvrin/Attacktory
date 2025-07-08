@@ -27,6 +27,7 @@ public class TileDataManager : MonoBehaviour
         }
     }
 
+
     private void OnEnable()
     {
         click.action.started += Click;
@@ -46,7 +47,43 @@ public class TileDataManager : MonoBehaviour
 
         TileBase clickedTile = environmentMap.GetTile(gridPosition);
 
-        byte tyleType = dataFromTiles[clickedTile].tileType;
+        sbyte tyleType = dataFromTiles[clickedTile].tileType;
         Debug.Log("Tile Type:" + tyleType + "   Position: " + gridPosition);
+    }
+
+    //maxTier is the highest tier the drill can mine (i.e. making sure not to give the basic drill aluminum)
+    public sbyte getResourceType(Vector2Int position, byte size, sbyte maxTier, out byte numTiles)//gets the id # of the resource the drill will produce
+    {
+        Debug.Log("position: "+position + "size" + size);
+        sbyte resourceType = -1;
+        numTiles = 0;
+        for(int i = 0; i < size; i++)
+        {
+            for(int j = 0; j < size; j++)
+            {
+                TileBase currentTile = environmentMap.GetTile(new Vector3Int(position.x + i, position.y + j, 0));
+                Debug.Log("testing tile position: " + (position.x + i) + " " + (position.y + j));
+                //get the highest resource ID
+                if(dataFromTiles[currentTile].tileType > resourceType && dataFromTiles[currentTile].tileType <= maxTier)
+                {
+                    resourceType = dataFromTiles[currentTile].tileType;
+                    Debug.Log(dataFromTiles[currentTile].tileType);
+                    numTiles = 0; //reset the count of tiles if we change type
+                }
+                //count how many tiles of that type there are
+                if (dataFromTiles[currentTile].tileType == resourceType)
+                {
+                    numTiles++;
+                }
+            }
+        }
+
+        return resourceType;
+    }
+
+    public Vector2Int getVector2(Vector3 position)
+    {
+        Vector3Int gridPosition = environmentMap.WorldToCell(position);
+        return new Vector2Int(gridPosition.x, gridPosition.y);
     }
 }
