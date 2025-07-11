@@ -3,5 +3,5 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PrefabReference : ScriptableObject
 {
-    GameObject[] objectArray;
+    public GameObject[] prefabList;
 }

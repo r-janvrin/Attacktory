@@ -5,7 +5,6 @@ public class drillScript : MonoBehaviour
     public storageScript myStorage;
     public sbyte resourceType;
     public sbyte myMaxTier;
-    private byte buildingType=3;//whether building is drill, wall, gun, etc
     public byte buildingID; //which drill, wall, gun, this building is
 
     public float maxProgress;
