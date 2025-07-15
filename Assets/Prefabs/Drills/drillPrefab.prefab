@@ -104,7 +104,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   position: {x: 0, y: 0}
   buildingSize: 2
-  buildingType: 0
+  _buildingType: 3
   maxStorage: 10
   storage: 000000000000000000000000000000000000
 --- !u!114 &3594854942824009485
@@ -119,9 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008faaa3da00d994bacd21d7e0fe5b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStorage: {fileID: 0}
-  resourceType: 0
-  myMaxTier: 5
-  buildingID: 0
+  myMaxTier: 4
   maxProgress: 0
-  currentProgress: 0

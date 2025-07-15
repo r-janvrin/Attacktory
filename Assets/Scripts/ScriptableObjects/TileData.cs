@@ -6,5 +6,5 @@ public class TileData : ScriptableObject
 {
     public TileBase[] tiles;
 
-    public sbyte tileType;
+    public ResourceType tileType;
 }
