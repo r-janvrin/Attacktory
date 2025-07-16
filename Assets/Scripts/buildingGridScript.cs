@@ -7,13 +7,13 @@ public class buildingGrid : MonoBehaviour
     private int NUM_BUILDING_TYPES;
     public GameObject testingObject;
     public TileDataManager tileManager;
-    private storageScript[,] buildingArray;
+    private baseBuildingScript[,] buildingArray;
     public PrefabReference[] prefabArray; //first index is type of building (wall, gun, etc). second index is number (which wall, gun, etc)
     public short xSize;
     public short ySize;
     void Awake()//awake is called before start
     {
-        buildingArray = new storageScript[xSize, ySize]; //each building starts as null
+        buildingArray = new baseBuildingScript[xSize, ySize]; //each building starts as null
         tileManager = GameObject.Find("TileDataManager").GetComponent<TileDataManager>();
         
     }
@@ -33,7 +33,8 @@ public class buildingGrid : MonoBehaviour
     {
         //create the game object & offset it by part of its size to centre the image
         GameObject tempObject = GameObject.Instantiate(getPrefab(buildingType, buildingID), new Vector3((float)position.x + size*0.5f, (float)position.y + size*0.5f, 0), Quaternion.identity);
-        buildingArray[position.x, position.y] = tempObject.GetComponent<storageScript>();
+        buildingArray[position.x, position.y] = tempObject.GetComponent<baseBuildingScript>();
+        Debug.Log("got: " + tempObject);
         for (int i = 0; i < size; i++) //store the reference to it in all blocks it is in
         {
             for(int j=0; j<size; j++)
@@ -50,12 +51,6 @@ public class buildingGrid : MonoBehaviour
             return testingObject;
         }
         return prefabArray[buildingType].prefabList[buildingType];
-    }
-
-    public float getDrillSpeed(byte numTiles, byte buildingID, sbyte resourceType)
-    {
-        Debug.Log("TODO: create variable drill speeds");
-        return 1f;
     }
 }
 

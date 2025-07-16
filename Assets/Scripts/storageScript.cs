@@ -13,9 +13,7 @@ public class storageScript : MonoBehaviour
 
     private void Awake()
     {
-        grid = GameObject.Find("BuildingManager").GetComponent<buildingGrid>(); //get reference to building grid
-        position = grid.tileManager.getVector2Int(transform.position);
-        position = position - new Vector2Int(buildingSize / 2, buildingSize / 2);//set position to bottom left corner
+
     }
 
     private void Start()
