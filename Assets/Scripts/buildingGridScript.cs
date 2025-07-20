@@ -44,6 +44,12 @@ public class buildingGrid : MonoBehaviour
         }
     }
 
+    public bool addToPosition(Vector2Int position, sbyte resourceType, Vector2Int direction)
+    {
+        if (buildingArray[position.x, position.y] == null) return false;
+        return buildingArray[position.x, position.y].AddResource(resourceType, direction);
+    }
+
     private GameObject getPrefab(byte buildingType, byte buildingID)
     {
         if(buildingType >= NUM_BUILDING_TYPES || buildingType < 0) //make sure it's not out of bounds 
