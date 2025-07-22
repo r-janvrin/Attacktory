@@ -4,14 +4,13 @@ public abstract class baseBuildingScript : MonoBehaviour
 {
     [HideInInspector] public buildingGrid grid;
     public byte buildingSize;
-    public Vector2Int position;
+    [HideInInspector] public Vector2Int position;
     public float health;
-    //what happens when a DIFFERENT building wants to give this a resource - true if received, false if rejected
-    public void setupResources()
+
+    public virtual void setupResources(Vector2Int bottomLeftPosition)
     {
         grid = GameObject.Find("BuildingManager").GetComponent<buildingGrid>(); //get reference to building grid
-        position = grid.tileManager.getVector2Int(transform.position);
-        position = position - new Vector2Int(buildingSize / 2, buildingSize / 2);//set position to bottom left corner
+        position = bottomLeftPosition;
     }
 
     public virtual bool AddResource(sbyte resourceType, Vector2Int direction)

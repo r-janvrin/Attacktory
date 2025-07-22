@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class drillScript : baseBuildingScript
 {
-
     public byte maxStorage;
     [SerializeField] DrillSpeedData speedData;
 
@@ -16,8 +15,6 @@ public class drillScript : baseBuildingScript
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        base.setupResources();
-
         byte numTiles;
         //get which resource im producing and set how many to 0
         output = new resourcePair(grid.tileManager.getResourceType(position, buildingSize, myMaxTier, out numTiles), 0);
