@@ -41,4 +41,9 @@ public abstract class baseBuildingScript : MonoBehaviour
         }
         return false;
     }
+
+    public virtual bool addFromConveyor(conveyorResourceController resourceToAdd, Vector2 direction)
+    {
+        return false;
+    }
 }

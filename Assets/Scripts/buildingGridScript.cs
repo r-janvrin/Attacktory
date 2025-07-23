@@ -6,8 +6,12 @@ public class buildingGrid : MonoBehaviour
 {
     private int NUM_BUILDING_TYPES;
     public GameObject testingObject;
-    public TileDataManager tileManager;
+    public GameObject conveyorObject;
+
+    [HideInInspector] public TileDataManager tileManager;
     private baseBuildingScript[,] buildingArray;
+    [SerializeField] private SpriteReference resourceSprites;
+    public GameObject baseConveyorResource;
 
     public short xSize;
     public short ySize;
@@ -22,6 +26,10 @@ public class buildingGrid : MonoBehaviour
     {
         //testing call - position, size, which building type, which specific building
         createBuilding(new Vector2Int(304, 294), testingObject);
+        for(int i = 0; i < 10; i++)
+        {
+            createBuilding(new Vector2Int(304 + i, 293), conveyorObject);
+        }
     }
     // Update is called once per frame
     void Update()
@@ -51,6 +59,25 @@ public class buildingGrid : MonoBehaviour
     {
         if (buildingArray[position.x, position.y] == null) return false;
         return buildingArray[position.x, position.y].AddResource(resourceType, direction);
+    }
+
+    public bool addToConveyor(Vector2Int position, conveyorResourceController conveyorResource, Vector2Int direction)
+    {
+        if (buildingArray[position.x, position.y] == null) return false;
+        if (buildingArray[position.x, position.y] is not conveyorScript) return false;
+        return buildingArray[position.x, position.y].addFromConveyor(conveyorResource, direction);
+
+    }
+
+    public GameObject getConveyorResource(sbyte resourceType)
+    {
+       //Debug.Log("GET CONVEYOR RESOURCE FIX!!!!");
+        return baseConveyorResource;
+    }
+
+    public Sprite getResourceSprite(sbyte resource)
+    {
+        return resourceSprites.sprites[resource];
     }
 }
 

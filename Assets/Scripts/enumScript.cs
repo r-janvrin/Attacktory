@@ -10,8 +10,8 @@ public enum BuildingType : byte
 public enum ResourceType : sbyte
 {
     wall = -2,
-    empty,
-    stone,
+    empty = -1,
+    stone = 0,
     sand,
     wood,
     coal,
