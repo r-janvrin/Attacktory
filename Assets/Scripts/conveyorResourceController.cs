@@ -8,9 +8,12 @@ public class conveyorResourceController : MonoBehaviour
     public float speed;
 
 
-    void setup(sbyte resType)
+    public void setup(sbyte resType, Vector3 targetPos, float speedValue)
     {
         resourceType = resType;
+        target = targetPos;
+        speed = speedValue;
+
     }
 
     // Update is called once per frame

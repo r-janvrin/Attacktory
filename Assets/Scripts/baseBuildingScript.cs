@@ -33,11 +33,11 @@ public abstract class baseBuildingScript : MonoBehaviour
             //up and then i right
             if (grid.addToPosition(position + Vector2Int.up * buildingSize + Vector2Int.right * i, resourceType, Vector2Int.up)) return true;
             //right and then i up
-            if (grid.addToPosition(position + Vector2Int.right * buildingSize + Vector2Int.up * i, resourceType, Vector2Int.up)) return true;
+            if (grid.addToPosition(position + Vector2Int.right * buildingSize + Vector2Int.up * i, resourceType, Vector2Int.right)) return true;
             //down and then i right
-            if (grid.addToPosition(position + Vector2Int.down + Vector2Int.right * i, resourceType, Vector2Int.up)) return true;
+            if (grid.addToPosition(position + Vector2Int.down + Vector2Int.right * i, resourceType, Vector2Int.down)) return true;
             //left and then i up
-            if (grid.addToPosition(position + Vector2Int.left + Vector2Int.up * i, resourceType, Vector2Int.up)) return true;
+            if (grid.addToPosition(position + Vector2Int.left + Vector2Int.up * i, resourceType, Vector2Int.left)) return true;
         }
         return false;
     }

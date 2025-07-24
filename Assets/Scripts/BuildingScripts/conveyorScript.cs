@@ -69,15 +69,14 @@ public class conveyorScript : baseBuildingScript
         if (direction + dir == Vector2Int.zero) return false;//dont accept backwards input
         GameObject temp = GameObject.Instantiate(grid.getConveyorResource(resourceType), creationPosition(dir), Quaternion.identity);
         backResource = temp.GetComponent<conveyorResourceController>();
-        backResource.setTarget(transform.position);
-        backResource.setSpeed(resourcePerSecond / numSections);
+        backResource.setup(resourceType, transform.position, (resourcePerSecond / numSections) );
         backResource.setSprite(grid.getResourceSprite(resourceType));
         return true;
     }
 
     private Vector3 creationPosition(Vector2Int dir)
     {
-        return transform.position + new Vector3(dir.x * 0.5f, dir.y * 0.5f, 0);
+        return transform.position - new Vector3(dir.x * 0.5f, dir.y * 0.5f, 0);
     }
     private bool moveToFront(conveyorResourceController resourceToMove) 
     {

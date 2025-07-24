@@ -27,7 +27,9 @@ public class buildingGrid : MonoBehaviour
     {
         //testing call - position, size, which building type, which specific building
         createBuilding(new Vector2Int(306, 294), testingObject);
-        for(int i = 0; i < 10; i++)
+        createBuilding(new Vector2Int(304, 292), testingObject);
+        //createBuilding(new Vector2Int(306, 291), testingObject);
+        for (int i = 0; i < 10; i++)
         {
             createBuilding(new Vector2Int(306 + i, 293), conveyorObject);
         }
