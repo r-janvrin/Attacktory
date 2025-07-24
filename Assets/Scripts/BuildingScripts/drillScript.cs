@@ -1,5 +1,17 @@
 using UnityEngine;
 
+public struct resourcePair
+{
+    public byte quantity;
+    public sbyte resourceType;
+
+    public resourcePair(sbyte type, byte storage)
+    {
+        quantity = storage;
+        resourceType = type;
+    }
+}
+
 public class drillScript : baseBuildingScript
 {
     public byte maxStorage;

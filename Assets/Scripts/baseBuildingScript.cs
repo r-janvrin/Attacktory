@@ -42,8 +42,13 @@ public abstract class baseBuildingScript : MonoBehaviour
         return false;
     }
 
-    public virtual bool addFromConveyor(conveyorResourceController resourceToAdd, Vector2 direction)
+    public virtual bool addFromConveyor(conveyorResourceController resourceToAdd, Vector2Int direction)
     {
+        if(AddResource(resourceToAdd.resourceType, direction))
+        {
+            resourceToAdd.delete();
+            return true;
+        }
         return false;
     }
 }

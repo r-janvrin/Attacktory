@@ -7,6 +7,7 @@ public class buildingGrid : MonoBehaviour
     private int NUM_BUILDING_TYPES;
     public GameObject testingObject;
     public GameObject conveyorObject;
+    public GameObject homeBaseObject;
 
     [HideInInspector] public TileDataManager tileManager;
     private baseBuildingScript[,] buildingArray;
@@ -25,11 +26,12 @@ public class buildingGrid : MonoBehaviour
     private void Start() //start is called on creation, but after awake
     {
         //testing call - position, size, which building type, which specific building
-        createBuilding(new Vector2Int(304, 294), testingObject);
+        createBuilding(new Vector2Int(306, 294), testingObject);
         for(int i = 0; i < 10; i++)
         {
-            createBuilding(new Vector2Int(304 + i, 293), conveyorObject);
+            createBuilding(new Vector2Int(306 + i, 293), conveyorObject);
         }
+        createBuilding(new Vector2Int(316, 293), homeBaseObject);
     }
     // Update is called once per frame
     void Update()
@@ -63,8 +65,12 @@ public class buildingGrid : MonoBehaviour
 
     public bool addToConveyor(Vector2Int position, conveyorResourceController conveyorResource, Vector2Int direction)
     {
-        if (buildingArray[position.x, position.y] == null) return false;
-        if (buildingArray[position.x, position.y] is not conveyorScript) return false;
+        if (buildingArray[position.x, position.y] == null)
+        {
+            Debug.Log("should not");
+            return false;
+        }
+        //if (buildingArray[position.x, position.y] is not conveyorScript) return false;
         return buildingArray[position.x, position.y].addFromConveyor(conveyorResource, direction);
 
     }

@@ -4155,6 +4155,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7885947346892435686, guid: 8c8c6f14aeec6a849907cf27fe9666e2, type: 3}
     - target: {fileID: 1902727247089574855, guid: 25db6570a986748449d675a0ecb7ac03, type: 3}
+      propertyPath: homeBaseObject
+      value: 
+      objectReference: {fileID: 7375658971875977147, guid: 7eb7b6a0b3d078b47ad52a7084acf247, type: 3}
+    - target: {fileID: 1902727247089574855, guid: 25db6570a986748449d675a0ecb7ac03, type: 3}
       propertyPath: resourceSprites
       value: 
       objectReference: {fileID: 11400000, guid: 5ba43c8d2cea330478cabcce09bc1ad0, type: 2}

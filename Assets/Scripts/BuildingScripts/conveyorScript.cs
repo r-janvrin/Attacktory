@@ -47,14 +47,15 @@ public class conveyorScript : baseBuildingScript
     public override void setupResources(Vector2Int bottomLeftPosition)
     {
         base.setupResources(bottomLeftPosition);
-        direction = new Vector2Int((int)transform.right.x, (int)transform.right.y);//1 tile in the direction the way is facing
+        direction = new Vector2Int((int)transform.right.x, (int)transform.right.y);//1 tile in the direction the conveyor is facing
         maxTimer = 1 / resourcePerSecond; //how long before a resource can move
         frontPosition = new Vector2(transform.position.x + direction.x * 0.5f, transform.position.y + direction.y * 0.5f);
     }
 
-    public override bool addFromConveyor(conveyorResourceController resToAdd, Vector2 dir)
+    public override bool addFromConveyor(conveyorResourceController resToAdd, Vector2Int dir)
     {
         if (backResource != null) return false;
+        if (direction + dir == Vector2Int.zero) return false;//dont accept backwards input
         backResource = resToAdd;
         backResource.setTarget(transform.position); //move to center of conveyor
         backResource.setSpeed(resourcePerSecond / numSections);
@@ -65,7 +66,7 @@ public class conveyorScript : baseBuildingScript
     public override bool AddResource(sbyte resourceType, Vector2Int dir)
     {
         if (backResource != null) return false;
-        if (dir == direction) return false;//dont accept backwards input
+        if (direction + dir == Vector2Int.zero) return false;//dont accept backwards input
         GameObject temp = GameObject.Instantiate(grid.getConveyorResource(resourceType), creationPosition(dir), Quaternion.identity);
         backResource = temp.GetComponent<conveyorResourceController>();
         backResource.setTarget(transform.position);

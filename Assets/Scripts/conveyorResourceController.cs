@@ -1,8 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class conveyorResourceController : MonoBehaviour
 {
-    private sbyte resourceType;
+    public sbyte resourceType;
     private Vector2 target;
     public float speed;
 
@@ -31,5 +32,10 @@ public class conveyorResourceController : MonoBehaviour
     public void setSprite(Sprite sprite)
     {
         transform.gameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+    public void delete()
+    {
+        GameObject.Destroy(transform.gameObject);
     }
 }

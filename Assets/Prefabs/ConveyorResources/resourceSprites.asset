@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: resourceSprites
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: -3256628914240278144, guid: 8dd85fec84a66724092ecc96c3b37ec6, type: 3}
+  - {fileID: 1097867234511442772, guid: 475f0bf0b803113429c5145fc892482a, type: 3}
   - {fileID: -3256628914240278144, guid: 8dd85fec84a66724092ecc96c3b37ec6, type: 3}
   - {fileID: -3256628914240278144, guid: 8dd85fec84a66724092ecc96c3b37ec6, type: 3}
   - {fileID: -3256628914240278144, guid: 8dd85fec84a66724092ecc96c3b37ec6, type: 3}

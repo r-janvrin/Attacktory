@@ -3,7 +3,7 @@ using UnityEngine;
 public class StorageManagerScript : MonoBehaviour
 {
     int num_ids = 28;
-    int[] stored_stuff;
+    public int[] stored_stuff;
     public int max;
 
     public void add_to_storage (sbyte store_id) {

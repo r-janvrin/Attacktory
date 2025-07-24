@@ -30,3 +30,10 @@ public enum ResourceType : sbyte
     TNT,
     missile
 }
+
+public enum ConveyorBehaviour : byte
+{
+    keep = 0,
+    pass = 1,
+    delete,
+}
