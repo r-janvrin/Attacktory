@@ -7,8 +7,10 @@ using System.Collections.Generic;
 public class TileDataManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public InputActionReference click;
+    public InputActionReference checkTile;
     [SerializeField] private Tilemap environmentMap;
+    private int i, j;
+    private TileBase currentTile;
 
     [SerializeField] private List<TileData> tileDatas;
 
@@ -30,17 +32,17 @@ public class TileDataManager : MonoBehaviour
 
     private void OnEnable()
     {
-        click.action.started += Click;
-        click.action.Enable();
+        checkTile.action.started += CheckTile;
+        checkTile.action.Enable();
     }
 
     private void OnDisable()
     {
-        click.action.started -= Click;
-        click.action.Disable();
+        checkTile.action.started -= CheckTile;
+        checkTile.action.Disable();
     }
 
-    private void Click(InputAction.CallbackContext obj)
+    private void CheckTile(InputAction.CallbackContext obj)
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         Vector3Int gridPosition = environmentMap.WorldToCell(mousePosition);
@@ -86,9 +88,24 @@ public class TileDataManager : MonoBehaviour
         return (sbyte)resourceType;
     }
 
-    public Vector2Int getVector2Int(Vector3 position)
+
+    public Vector2Int getVector2Int(Vector2 position)
     {
-        Vector3Int gridPosition = environmentMap.WorldToCell(position);
+        Vector3Int gridPosition = environmentMap.WorldToCell(new Vector3(position.x, position.y, 0));
         return new Vector2Int(gridPosition.x, gridPosition.y);
+    }
+
+    public bool tilesAreValid(Vector2Int BL, byte size)
+    {
+        for (i = 0; i < size; i++)
+        {
+            for(j=0; j<size; j++)
+            {
+                //check to see if the tile is null or a wall
+                currentTile = environmentMap.GetTile(new Vector3Int(BL.x + i, BL.y + j, 0));
+                if (currentTile == null || dataFromTiles[currentTile].tileType == ResourceType.wall) return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8b3559570c8b8cc488bb6c5c2fc25c85
+guid: 9db57e4b92a08124683cc8ac146b1dc3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2403959896177974178
-    second: CrossBowBase_0
+      213: 8484163080420813582
+    second: sandTile1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrossBowBase_0
+      name: sandTile1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e54e60e063b63aed0800000000000000
-      internalID: -2403959896177974178
+      spriteID: e0b67f0ee5dcdb570800000000000000
+      internalID: 8484163080420813582
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CrossBowBase_0: -2403959896177974178
+      sandTile1_0: 8484163080420813582
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

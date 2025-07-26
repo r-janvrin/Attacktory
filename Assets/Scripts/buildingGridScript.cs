@@ -41,7 +41,7 @@ public class buildingGrid : MonoBehaviour
         
     }
 
-    void createBuilding(Vector2Int position, GameObject prefab)
+    public void createBuilding(Vector2Int position, GameObject prefab)
     {
         //create the game object & offset it by part of its size to centre the image
         byte size = prefab.GetComponent<baseBuildingScript>().buildingSize;
@@ -86,6 +86,18 @@ public class buildingGrid : MonoBehaviour
     public Sprite getResourceSprite(sbyte resource)
     {
         return resourceSprites.sprites[resource];
+    }
+
+    public bool tilesAreEmpty(Vector2Int BL, byte size)
+    {
+        for(int i = 0; i < size; i++)
+        {
+            for(int j = 0; j < size; j++)
+            {
+                if (buildingArray[BL.x + i, BL.y + j] != null) return false;
+            }
+        }
+        return true;
     }
 }
 
