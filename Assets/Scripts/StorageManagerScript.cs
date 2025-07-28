@@ -1,10 +1,18 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System.Collections;
+using System;
 
 public class StorageManagerScript : MonoBehaviour
 {
     int num_ids = 28;
     public int[] stored_stuff;
     public int max;
+    public TextMeshProUGUI UI_text;
+ 
+    public GameObject UI_GameObject;
+
 
     public void add_to_storage (sbyte store_id) {
         if (stored_stuff[store_id] < max)
@@ -25,6 +33,13 @@ public class StorageManagerScript : MonoBehaviour
     void Awake ()
     {
         stored_stuff = new int[num_ids];
+        UI_text = UI_GameObject.GetComponent<TextMeshProUGUI>();
     }
+
+    public void Update() {
         
+        UI_text.SetText("it works");
+        
+
+}
 }

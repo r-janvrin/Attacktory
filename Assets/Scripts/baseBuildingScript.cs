@@ -6,11 +6,28 @@ public abstract class baseBuildingScript : MonoBehaviour
     public byte buildingSize;
     [HideInInspector] public Vector2Int position;
     public float health;
+    private directionalResource[] positions;
 
     public virtual void setupResources(Vector2Int bottomLeftPosition)
     {
         grid = GameObject.Find("BuildingManager").GetComponent<buildingGrid>(); //get reference to building grid
         position = bottomLeftPosition;
+        positions = new directionalResource[buildingSize * 4];
+
+        for(int i = 0; i < buildingSize; i++) { 
+            //up then i right
+            positions[i*4] = new directionalResource(position+Vector2Int.up * buildingSize + Vector2Int.right*i, Vector2Int.up);
+            //down then i right
+            positions[i*4 + 1] = new directionalResource(position+Vector2Int.down + Vector2Int.right*i, Vector2Int.down);
+
+            //left then i up
+            positions[i*4 + 2] = new directionalResource(position+Vector2Int.left + Vector2Int.up*i, Vector2Int.left);
+
+            //right then i up
+            positions[i*4 + 3] = new directionalResource(position + Vector2Int.right*buildingSize + Vector2Int.up*i, Vector2Int.right);
+        }
+        scramblePositions();
+        
     }
 
     public virtual bool AddResource(sbyte resourceType, Vector2Int direction)
@@ -28,18 +45,33 @@ public abstract class baseBuildingScript : MonoBehaviour
     //default way to output resources - returns true if a resource is outputted
     public virtual bool outputResources(sbyte resourceType)
     {
-        for(int i = 0; i < buildingSize; i++)
+        for(int i = 0; i < buildingSize*4; i++)
         {
-            //up and then i right
-            if (grid.addToPosition(position + Vector2Int.up * buildingSize + Vector2Int.right * i, resourceType, Vector2Int.up)) return true;
-            //right and then i up
-            if (grid.addToPosition(position + Vector2Int.right * buildingSize + Vector2Int.up * i, resourceType, Vector2Int.right)) return true;
-            //down and then i right
-            if (grid.addToPosition(position + Vector2Int.down + Vector2Int.right * i, resourceType, Vector2Int.down)) return true;
-            //left and then i up
-            if (grid.addToPosition(position + Vector2Int.left + Vector2Int.up * i, resourceType, Vector2Int.left)) return true;
+            if (grid.addToPosition(positions[i].position, resourceType, positions[i].direction))
+            {
+                scramblePositions();
+                return true;
+            }
         }
         return false;
+    }
+
+    //Fisher-Yates shuffle algorithm
+    private void scramblePositions()
+    {
+        int rand;
+        for(int i=buildingSize*4-1; i>0; i--)
+        {
+            rand = Random.Range(0, i);
+            swap(i, rand);
+        }
+    }
+
+    private void swap(int a, int b)
+    {
+        directionalResource temp = positions[a];
+        positions[a] = positions[b];
+        positions[b] = temp;
     }
 
     public virtual bool addFromConveyor(conveyorResourceController resourceToAdd, Vector2Int direction)
@@ -50,5 +82,16 @@ public abstract class baseBuildingScript : MonoBehaviour
             return true;
         }
         return false;
+    }
+}
+
+public struct directionalResource
+{
+    public Vector2Int direction;
+    public Vector2Int position;
+    public directionalResource(Vector2Int pos, Vector2Int dir)
+    {
+        position = pos;
+        direction = dir;
     }
 }

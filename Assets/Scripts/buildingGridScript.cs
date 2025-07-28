@@ -27,13 +27,13 @@ public class buildingGrid : MonoBehaviour
     {
         //testing call - position, size, which building type, which specific building
         createBuilding(new Vector2Int(306, 294), testingObject);
-        createBuilding(new Vector2Int(304, 292), testingObject);
+        //createBuilding(new Vector2Int(304, 292), testingObject);
         //createBuilding(new Vector2Int(306, 291), testingObject);
-        for (int i = 0; i < 10; i++)
-        {
-            createBuilding(new Vector2Int(306 + i, 293), conveyorObject);
-        }
-        createBuilding(new Vector2Int(316, 293), homeBaseObject);
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    createBuilding(new Vector2Int(306 + i, 293), conveyorObject);
+        //}
+        //createBuilding(new Vector2Int(316, 293), homeBaseObject);
     }
     // Update is called once per frame
     void Update()
@@ -69,7 +69,7 @@ public class buildingGrid : MonoBehaviour
     {
         if (buildingArray[position.x, position.y] == null)
         {
-            Debug.Log("should not");
+            //Debug.Log("should not be accessing " + position);
             return false;
         }
         //if (buildingArray[position.x, position.y] is not conveyorScript) return false;
