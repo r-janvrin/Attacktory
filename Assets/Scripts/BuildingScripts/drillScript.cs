@@ -12,14 +12,13 @@ public struct resourcePair
     }
 }
 
-public class drillScript : baseBuildingScript
+public class drillScript : outputBuilding
 {
     public byte maxStorage;
     [SerializeField] DrillSpeedData speedData;
 
     //private storageScript myStorage;
     public ResourceType myMaxTier;
-    private byte buildingID; //which drill, wall, gun, this building is
 
     private float maxProgress;
     private float currentProgress=0;
@@ -29,16 +28,14 @@ public class drillScript : baseBuildingScript
     {
         byte numTiles;
         //get which resource im producing and set how many to 0
-        output = new resourcePair(grid.tileManager.getResourceType(position, buildingSize, myMaxTier, out numTiles), 0);
+        output = new resourcePair(TileDataManager.manager.getResourceType(position, buildingSize, myMaxTier, out numTiles), 0);
         //determine how much time must pass before adding a resource
         maxProgress = getDrillSpeed(output.resourceType, numTiles);
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         currentProgress += Time.deltaTime;
 
         if (currentProgress > maxProgress)//add resource to storage

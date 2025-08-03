@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class buildingGrid : MonoBehaviour
 {
+    [HideInInspector] public static buildingGrid grid;
     private int NUM_BUILDING_TYPES;
     public GameObject testingObject;
     public GameObject conveyorObject;
@@ -18,6 +19,7 @@ public class buildingGrid : MonoBehaviour
     public short ySize;
     void Awake()//awake is called before start
     {
+        grid = this;
         buildingArray = new baseBuildingScript[xSize, ySize]; //each building starts as null
         tileManager = GameObject.Find("TileDataManager").GetComponent<TileDataManager>();
         

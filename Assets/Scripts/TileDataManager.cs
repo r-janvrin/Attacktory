@@ -6,7 +6,8 @@ using System.Collections.Generic;
 
 public class TileDataManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [HideInInspector] public static TileDataManager manager;
+
     public InputActionReference checkTile;
     [SerializeField] private Tilemap environmentMap;
     private int i, j;
@@ -18,6 +19,7 @@ public class TileDataManager : MonoBehaviour
 
     private void Awake()
     {
+        manager = this;
         dataFromTiles = new Dictionary<TileBase, TileData>();
 
         foreach(var tileData in tileDatas)

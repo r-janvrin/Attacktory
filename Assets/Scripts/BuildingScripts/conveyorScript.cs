@@ -12,19 +12,21 @@ public class conveyorScript : baseBuildingScript
     private float maxTimer;
     public float resourcePerSecond;
     [SerializeField] byte numSections;
-    private void Start()
+
+    public override void setupResources(Vector2Int bottomLeftPosition)
     {
-
+        base.setupResources(bottomLeftPosition);
+        direction = new Vector2Int((int)transform.right.x, (int)transform.right.y);//1 tile in the direction the conveyor is facing
+        maxTimer = 1 / resourcePerSecond; //how long before a resource can move
+        frontPosition = new Vector2(transform.position.x + direction.x * 0.5f, transform.position.y + direction.y * 0.5f);
     }
-
-    
 
     private void Update()
     {
         if( frontResource != null)
         {
             frontTimer += Time.deltaTime;
-            if (frontTimer >= maxTimer && grid.addToConveyor(position + direction, frontResource, direction))
+            if (frontTimer >= maxTimer && buildingGrid.grid.addToConveyor(position + direction, frontResource, direction))
             {
                 frontTimer = 0;
                 frontResource = null;
@@ -44,13 +46,7 @@ public class conveyorScript : baseBuildingScript
 
     }
 
-    public override void setupResources(Vector2Int bottomLeftPosition)
-    {
-        base.setupResources(bottomLeftPosition);
-        direction = new Vector2Int((int)transform.right.x, (int)transform.right.y);//1 tile in the direction the conveyor is facing
-        maxTimer = 1 / resourcePerSecond; //how long before a resource can move
-        frontPosition = new Vector2(transform.position.x + direction.x * 0.5f, transform.position.y + direction.y * 0.5f);
-    }
+
 
     public override bool addFromConveyor(conveyorResourceController resToAdd, Vector2Int dir)
     {
@@ -67,10 +63,10 @@ public class conveyorScript : baseBuildingScript
     {
         if (backResource != null) return false;
         if (direction + dir == Vector2Int.zero) return false;//dont accept backwards input
-        GameObject temp = GameObject.Instantiate(grid.getConveyorResource(resourceType), creationPosition(dir), Quaternion.identity);
+        GameObject temp = GameObject.Instantiate(buildingGrid.grid.getConveyorResource(resourceType), creationPosition(dir), Quaternion.identity);
         backResource = temp.GetComponent<conveyorResourceController>();
         backResource.setup(resourceType, transform.position, (resourcePerSecond / numSections) );
-        backResource.setSprite(grid.getResourceSprite(resourceType));
+        backResource.setSprite(buildingGrid.grid.getResourceSprite(resourceType));
         return true;
     }
 

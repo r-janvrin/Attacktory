@@ -6,6 +6,7 @@ using System;
 
 public class StorageManagerScript : MonoBehaviour
 {
+    [HideInInspector] public static StorageManagerScript manager;
     int num_ids = 28;
     public int[] stored_stuff;
     public int max;
@@ -32,6 +33,7 @@ public class StorageManagerScript : MonoBehaviour
 
     void Awake ()
     {
+        manager = this;
         stored_stuff = new int[num_ids];
         UI_text = UI_GameObject.GetComponent<TextMeshProUGUI>();
     }
