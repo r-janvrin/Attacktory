@@ -28,7 +28,7 @@ public class buildingGrid : MonoBehaviour
     private void Start() //start is called on creation, but after awake
     {
         //testing call - position, size, which building type, which specific building
-        createBuilding(new Vector2Int(306, 294), testingObject);
+        createBuilding(new Vector2Int(306, 294), testingObject, Quaternion.identity);
         //createBuilding(new Vector2Int(304, 292), testingObject);
         //createBuilding(new Vector2Int(306, 291), testingObject);
         //for (int i = 0; i < 10; i++)
@@ -43,11 +43,11 @@ public class buildingGrid : MonoBehaviour
         
     }
 
-    public void createBuilding(Vector2Int position, GameObject prefab)
+    public void createBuilding(Vector2Int position, GameObject prefab, Quaternion rotation)
     {
         //create the game object & offset it by part of its size to centre the image
         byte size = prefab.GetComponent<baseBuildingScript>().buildingSize;
-        GameObject tempObject = GameObject.Instantiate(prefab, new Vector3((float)position.x + size*0.5f, (float)position.y + size*0.5f, 0), Quaternion.identity);
+        GameObject tempObject = GameObject.Instantiate(prefab, new Vector3((float)position.x + size*0.5f, (float)position.y + size*0.5f, 0), rotation);
 
         buildingArray[position.x, position.y] = tempObject.GetComponent<baseBuildingScript>();
         buildingArray[position.x, position.y].setupResources(position);

@@ -4947,7 +4947,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard+Mouse
-  m_DefaultActionMap: Gameplay
+  m_DefaultActionMap: controls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &519420035
@@ -5419,6 +5419,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MouseManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6638253263328371534, guid: 81f3334ee59348d4bbadda489fa4ef58, type: 3}
+      propertyPath: scroll
+      value: 
+      objectReference: {fileID: -7914408897396803912, guid: d5058aea078fe4e469729de1a54f8b30, type: 3}
+    - target: {fileID: 6638253263328371534, guid: 81f3334ee59348d4bbadda489fa4ef58, type: 3}
+      propertyPath: scrollUp
+      value: 
+      objectReference: {fileID: 8318888850744323807, guid: d5058aea078fe4e469729de1a54f8b30, type: 3}
+    - target: {fileID: 6638253263328371534, guid: 81f3334ee59348d4bbadda489fa4ef58, type: 3}
+      propertyPath: scrollDown
+      value: 
+      objectReference: {fileID: 4318234003448550240, guid: d5058aea078fe4e469729de1a54f8b30, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
