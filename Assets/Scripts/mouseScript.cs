@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Unity.Collections.AllocatorManager;
@@ -11,6 +12,7 @@ public class testScript : MonoBehaviour
     [SerializeField] private bool validPosition;
     [SerializeField] private GameObject hoverObject;
     private SpriteRenderer hoverSprite;
+    private bool isMouseDown;
 
     private Color whiteColor;
     private Color redColor;
@@ -18,10 +20,12 @@ public class testScript : MonoBehaviour
     public float scrollValue;
     private int currentRotation;
     private Quaternion[] rotations;
+    direction lastDirection;
 
     Vector2Int sizeOffset;
     Vector2 mousePosition;
     Vector2Int gridPosition;
+    Vector2Int clickPosition;
     private void Awake()
     {
         //create the 2 colors: white is slightly transparent, red is red & transparent
@@ -31,11 +35,12 @@ public class testScript : MonoBehaviour
         hoverSprite = hoverObject.GetComponent<SpriteRenderer>();
         int degrees = 0;
         rotations = new Quaternion[4];
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             rotations[i] = Quaternion.AngleAxis(degrees, Vector3.forward);
             degrees += 90;
         }
+        isMouseDown = false;
     }
     void Update()
     {
@@ -59,27 +64,52 @@ public class testScript : MonoBehaviour
         {
             hoverSprite.color = redColor;
         }
+        if (isMouseDown) mouseDownBehaviour();
+    }
+
+    void mouseDownBehaviour()
+    {
+        //check which direction the mouse is furthest from
+        direction mouseDirection = getMouseDirection();
+        if(lastDirection == mouseDirection)
+        {
+            //check to see if any of the planned buildings should be added/removed
+            return;
+        }
+        //get rid of all old buildings and add all the new ones
     }
 
     private void OnEnable()
     {
-        click.action.started += Click;
+        click.action.started += ClickStart;
+        click.action.canceled += ClickEnd;
         click.action.Enable();
         scroll.action.Enable();
     }
 
     private void OnDisable()
     {
-        click.action.started -= Click;
+        click.action.started -= ClickStart;
+        click.action.canceled -= ClickEnd;
         click.action.Disable();
         scroll.action.Disable();
     }
 
-    private void Click(InputAction.CallbackContext obj)
+    private void ClickStart(InputAction.CallbackContext obj)
     {
+        //getting values of start of click
+        isMouseDown = true;
+        clickPosition = gridPosition;
+        lastDirection = direction.none;
         Debug.Log("CLICKED");
+        //putting a building at the location - to be removed
         if (!validPosition) return;
         buildingGrid.grid.createBuilding(gridPosition, currentBuilding, rotations[currentRotation]);
+    }
+
+    private void ClickEnd(InputAction.CallbackContext obj)
+    {
+        isMouseDown = false;
     }
 
     private void ScrollUp()
@@ -98,7 +128,16 @@ public class testScript : MonoBehaviour
         hoverObject.transform.rotation = rotations[currentRotation];
     }
 
-
+    public direction getMouseDirection(){
+        Vector2 mouseOffset = mousePosition - clickPosition;
+        if(mouseOffset.x != 0)
+        {
+            if (mouseOffset.x > 0) return direction.right;
+            return direction.left;
+        }
+        if (mouseOffset.y > 0) return direction.up;
+        return direction.down;
+    }
 
     public bool areaIsValid(Vector2Int bottomLeft, byte size)
     {
@@ -114,4 +153,29 @@ public class testScript : MonoBehaviour
         sizeOffset = new Vector2Int(currentSize / 2, currentSize / 2);
         hoverSprite.sprite = currentBuilding.GetComponent<SpriteRenderer>().sprite;
     }
+}
+
+struct creationQueue
+{
+    public int current;
+    public GameObject[] buildings;
+    public creationQueue(int size)
+    {
+        current = 0;
+        buildings = new GameObject[size];
+    }
+    public void addToQueue(GameObject objToAdd)
+    {
+        buildings[current] = objToAdd;
+        current++;
+    }
+}
+
+public enum direction
+{
+    right = 0,
+    up,
+    left,
+    down,
+    none
 }
