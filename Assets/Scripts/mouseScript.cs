@@ -26,7 +26,7 @@ public class testScript : MonoBehaviour
     Vector2Int sizeOffset;
     Vector2 mousePosition;
     Vector2Int gridPosition;
-    Vector2 clickPosition;
+    Vector2Int clickPosition;
     private void Awake()
     {
         //create the 2 colors: white is slightly transparent, red is red & transparent
@@ -73,7 +73,7 @@ public class testScript : MonoBehaviour
     {
         //check which direction the mouse is furthest from
         int numBuildings;
-        Vector2 mouseDirection = getMouseDirection(out numBuildings);
+        Vector2Int mouseDirection = getMouseDirection(out numBuildings);
         if(lastDirection == mouseDirection) //if we're in the same direction
         {
             plannedBuildings.setNumBuildings(numBuildings, currentBuilding);
@@ -103,8 +103,8 @@ public class testScript : MonoBehaviour
     {
         //getting values of start of click
         isMouseDown = true;
-        clickPosition = new Vector2(gridPosition.x + currentSize * 0.5f, gridPosition.y + currentSize * 0.5f);
-        plannedBuildings.setPosition(clickPosition);
+        clickPosition = gridPosition;
+        plannedBuildings.setPosition(new Vector2(gridPosition.x + currentSize * 0.5f, gridPosition.y + currentSize * 0.5f));
         lastDirection = Vector2.zero;
         Debug.Log("CLICKED");
         //putting a building at the location - to be removed
@@ -117,6 +117,12 @@ public class testScript : MonoBehaviour
         Debug.Log("STOPPED CLICKING");
         isMouseDown = false;
         //put all our planned buildings to the building manager
+        Vector2Int tempPosition = clickPosition;
+        for(int i = 0; i < plannedBuildings.numPlanned; i++)
+        {
+            if(areaIsValid(tempPosition, currentSize)) buildingGrid.grid.createBuilding(tempPosition, currentBuilding, rotations[currentRotation]);
+            tempPosition = tempPosition + plannedBuildings.direction * currentSize;
+        }
         plannedBuildings.clearQueue();
     }
 
@@ -126,6 +132,7 @@ public class testScript : MonoBehaviour
         currentRotation++;
         if (currentRotation > 3) currentRotation = 0;
         hoverObject.transform.rotation = rotations[currentRotation];
+        plannedBuildings.setRotation(rotations[currentRotation]);
     }
     private void ScrollDown()
     {
@@ -133,25 +140,26 @@ public class testScript : MonoBehaviour
         currentRotation--;
         if (currentRotation < 0) currentRotation = 3;
         hoverObject.transform.rotation = rotations[currentRotation];
+        plannedBuildings.setRotation(rotations[currentRotation]);
     }
 
-    public Vector2 getMouseDirection(out int numBuildings){
-        Vector2 mouseOffset = mousePosition - clickPosition;
+    public Vector2Int getMouseDirection(out int numBuildings){
+        Vector2 mouseOffset = mousePosition - clickPosition;// + new Vector2(currentSize * 0.5f, currentSize * 0.5f);
         Debug.Log("Mouse Offset: " + mouseOffset);
 
 
         //if we are more horizontal than vertical
         if (Mathf.Abs(mouseOffset.x) > Mathf.Abs(mouseOffset.y))
         {
-            numBuildings = 1 + (int)(Mathf.Abs(mouseOffset.x) + currentSize*0.5f) / currentSize;
-            if (mouseOffset.x < 0) return Vector2.left;
-            //numBuildings++;
-            return Vector2.right;
+            numBuildings = 1 + (int)(Mathf.Abs(mouseOffset.x)) / currentSize;
+            if (mouseOffset.x > 0) return Vector2Int.right;
+            numBuildings++;
+            return Vector2Int.left;
         }
-        numBuildings = 1 + (int)(Mathf.Abs(mouseOffset.y) + currentSize*0.5f) / currentSize;
-        if (mouseOffset.y < 0) return Vector2.down;
-        //numBuildings++;
-        return Vector2.up;
+        numBuildings = 1 + (int)(Mathf.Abs(mouseOffset.y)) / currentSize;
+        if (mouseOffset.y > 0) return Vector2Int.up;
+        numBuildings++;
+        return Vector2Int.down;
 
     }
 
@@ -176,7 +184,7 @@ class creationQueue
 {
     public int numPlanned;
     public GameObject[] buildings;
-    private Vector2 direction;
+    public Vector2Int direction;
     private Vector2 position;
     private Quaternion rotation;
     private int buildingSize;
@@ -234,7 +242,7 @@ class creationQueue
             removeFromQueue();
         }
     }
-    public void changeDirection(Vector2 newDirection, int howMany, GameObject objToAdd)
+    public void changeDirection(Vector2Int newDirection, int howMany, GameObject objToAdd)
     {
         direction = newDirection;
         clearQueue();
