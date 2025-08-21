@@ -2,9 +2,11 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Unity.Collections.AllocatorManager;
+using UnityEngine.EventSystems;
 
-public class testScript : MonoBehaviour
+public class mouseScript : MonoBehaviour
 {
+    public static mouseScript controller;
     [SerializeField] private InputActionReference click;
     [SerializeField] private InputActionReference scroll;
     [SerializeField] private GameObject currentBuilding;
@@ -13,6 +15,7 @@ public class testScript : MonoBehaviour
     [SerializeField] private GameObject hoverObject;
     private SpriteRenderer hoverSprite;
     private bool isMouseDown;
+    private bool isOverUI;
 
     private Color whiteColor;
     private Color redColor;
@@ -29,6 +32,7 @@ public class testScript : MonoBehaviour
     Vector2Int clickPosition;
     private void Awake()
     {
+        controller = this;
         //create the 2 colors: white is slightly transparent, red is red & transparent
         whiteColor = new Color(1, 1, 1, 0.8f);
         redColor = new Color(1, 0.35f, 0.35f, 0.8f);
@@ -46,6 +50,7 @@ public class testScript : MonoBehaviour
     }
     void Update()
     {
+        isOverUI = EventSystem.current.IsPointerOverGameObject();
         //check to see if scroll up or down and rotate based on that
         scrollValue = scroll.action.ReadValue<float>();
         if (scrollValue > 0) ScrollUp();
@@ -101,20 +106,16 @@ public class testScript : MonoBehaviour
 
     private void ClickStart(InputAction.CallbackContext obj)
     {
+        if (isOverUI || currentBuilding == null) return;//if its a UI click or no choice, don't build
         //getting values of start of click
         isMouseDown = true;
         clickPosition = gridPosition;
         plannedBuildings.setPosition(new Vector2(gridPosition.x + currentSize * 0.5f, gridPosition.y + currentSize * 0.5f));
         lastDirection = Vector2.zero;
-        Debug.Log("CLICKED");
-        //putting a building at the location - to be removed
-        //if (!validPosition) return;
-        //buildingGrid.grid.createBuilding(gridPosition, currentBuilding, rotations[currentRotation]);
     }
 
     private void ClickEnd(InputAction.CallbackContext obj)
     {
-        Debug.Log("STOPPED CLICKING");
         isMouseDown = false;
         //put all our planned buildings to the building manager
         Vector2Int tempPosition = clickPosition;
@@ -128,7 +129,6 @@ public class testScript : MonoBehaviour
 
     private void ScrollUp()
     {
-        Debug.Log("Scrolled Up!");
         currentRotation++;
         if (currentRotation > 3) currentRotation = 0;
         hoverObject.transform.rotation = rotations[currentRotation];
@@ -136,7 +136,6 @@ public class testScript : MonoBehaviour
     }
     private void ScrollDown()
     {
-        Debug.Log("Scrolled down!");
         currentRotation--;
         if (currentRotation < 0) currentRotation = 3;
         hoverObject.transform.rotation = rotations[currentRotation];
@@ -145,7 +144,6 @@ public class testScript : MonoBehaviour
 
     public Vector2Int getMouseDirection(out int numBuildings){
         Vector2 mouseOffset = mousePosition - clickPosition;// + new Vector2(currentSize * 0.5f, currentSize * 0.5f);
-        Debug.Log("Mouse Offset: " + mouseOffset);
 
 
         //if we are more horizontal than vertical
@@ -162,7 +160,6 @@ public class testScript : MonoBehaviour
         return Vector2Int.down;
 
     }
-
     public bool areaIsValid(Vector2Int bottomLeft, byte size)
     {
         if (!buildingGrid.grid.tilesAreEmpty(bottomLeft, size)) return false; //make sure there's no buildings
@@ -172,6 +169,13 @@ public class testScript : MonoBehaviour
 
     public void setPrefab(GameObject prefab)
     {
+        if(prefab == null)
+        {
+            currentBuilding = null;
+            hoverObject.SetActive(false);
+            return;
+        }
+        hoverObject.SetActive(true);
         currentBuilding = prefab;
         currentSize = currentBuilding.GetComponent<baseBuildingScript>().buildingSize;
         plannedBuildings.setBuildingSize(currentSize);
@@ -231,7 +235,6 @@ class creationQueue
     public void setNumBuildings(int howMany, GameObject objToAdd)
     {
         if (howMany < 0) return;
-        Debug.Log("How many:" + howMany);
         while(howMany > numPlanned)
         {
             addToQueue(objToAdd);
