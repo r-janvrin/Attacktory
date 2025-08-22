@@ -171,10 +171,12 @@ public class mouseScript : MonoBehaviour
     {
         if(prefab == null)
         {
+            Debug.Log("Invalid Prefab!");
             currentBuilding = null;
             hoverObject.SetActive(false);
             return;
         }
+        Debug.Log("Valid Prefab!");
         hoverObject.SetActive(true);
         currentBuilding = prefab;
         currentSize = currentBuilding.GetComponent<baseBuildingScript>().buildingSize;

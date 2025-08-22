@@ -6,10 +6,12 @@ public class ToggleController : MonoBehaviour
 {
     [SerializeField] private GameObject prefabPanel;
     [SerializeField] private Toggle toggle;
+    [SerializeField] private GameObject darkBackground;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public void setVisible(bool toggleValue)
     {
         prefabPanel.SetActive(toggleValue);
+        darkBackground.SetActive(toggleValue);
     }
 }
