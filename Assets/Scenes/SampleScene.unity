@@ -5707,7 +5707,7 @@ GameObject:
   - component: {fileID: 260784771}
   - component: {fileID: 260784770}
   m_Layer: 5
-  m_Name: BasicConveyor (11)
+  m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5745,7 +5745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8464eb6905c5d8f499b8ecd470bd6b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSet: {fileID: 7885947346892435686, guid: 8c8c6f14aeec6a849907cf27fe9666e2, type: 3}
+  prefabToSet: {fileID: 7375658971875977147, guid: 7eb7b6a0b3d078b47ad52a7084acf247, type: 3}
 --- !u!114 &260784771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5957,38 +5957,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329327696}
   m_CullTransparentMesh: 1
---- !u!1 &338767105
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 338767106}
-  m_Layer: 0
-  m_Name: SpecificSelection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &338767106
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338767105}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -56.97052, y: -294.9037, z: 0}
-  m_LocalScale: {x: 0.8333333, y: 0.8333333, z: 0.8333333}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1231992326}
-  m_Father: {fileID: 597942752}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349212028
 GameObject:
   m_ObjectHideFlags: 0
@@ -6838,7 +6806,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3573988957413107787, guid: 0caa633c3be1b1744b87dd328f669638, type: 3}
+  m_Sprite: {fileID: 2873945050659639462, guid: f2f603272f15a1a429f620b81654ae43, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7026,7 +6994,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1633913268}
-  - {fileID: 338767106}
+  - {fileID: 1231992326}
   - {fileID: 349212029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8157,7 +8125,7 @@ RectTransform:
   m_GameObject: {fileID: 1231992325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1143662880}
@@ -8170,11 +8138,11 @@ RectTransform:
   - {fileID: 1247300321}
   - {fileID: 838261204}
   - {fileID: 195992939}
-  m_Father: {fileID: 338767106}
+  m_Father: {fileID: 597942752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.364716, y: -24.11554}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 135.00003}
   m_SizeDelta: {x: 1000, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1231992327
@@ -8852,7 +8820,7 @@ GameObject:
   - component: {fileID: 1472681048}
   - component: {fileID: 1472681047}
   m_Layer: 5
-  m_Name: CHOOSEBUTTON
+  m_Name: drill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10200,7 +10168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6803873404882588446, guid: 55fc6bcc68bcf114eae283d1bcd1f621, type: 3}
+  m_Sprite: {fileID: -4244473986221331750, guid: 62081a4736e796d49976d8e3a1c19353, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

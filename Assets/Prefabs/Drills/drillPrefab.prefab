@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3573988957413107787, guid: 0caa633c3be1b1744b87dd328f669638, type: 3}
+  m_Sprite: {fileID: 2873945050659639462, guid: f2f603272f15a1a429f620b81654ae43, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008faaa3da00d994bacd21d7e0fe5b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  position: {x: 0, y: 0}
   buildingSize: 2
+  position: {x: 0, y: 0}
+  health: 0
   maxStorage: 10
   speedData: {fileID: 11400000, guid: 8274986698fd8ea428542b63e4400149, type: 2}
   myMaxTier: 4

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8dd85fec84a66724092ecc96c3b37ec6
+guid: 784d5e9c5c8b75341975d9ae122e3c2d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3256628914240278144
-    second: try_0
+      213: 1237944872517649214
+    second: GunpowderResource_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 20
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -74,8 +74,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
+    textureFormat: -1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: try_0
+      name: GunpowderResource_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 8
-        height: 8
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0813171c1412ec2d0800000000000000
-      internalID: -3256628914240278144
+      spriteID: e334ee97d401e2110800000000000000
+      internalID: 1237944872517649214
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      try_0: -3256628914240278144
+      GunpowderResource_0: 1237944872517649214
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
