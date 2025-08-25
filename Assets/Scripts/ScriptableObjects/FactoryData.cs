@@ -4,8 +4,10 @@ using UnityEngine;
 public class FactoryData : ScriptableObject
 {
     public ResourceType[] requiredResources;
-    public sbyte[] numRequired;
+    public byte[] numRequired;
 
     public ResourceType[] outputResources;
-    public sbyte[] numOutputted;
+    public byte[] numOutputted;
+
+    public float productionTime;
 }

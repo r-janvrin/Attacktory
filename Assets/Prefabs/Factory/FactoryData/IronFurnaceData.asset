@@ -16,3 +16,4 @@ MonoBehaviour:
   numRequired: 02
   outputResources: 08
   numOutputted: 01
+  productionTime: 0.75
