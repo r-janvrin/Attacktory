@@ -23,7 +23,7 @@ public class mouseScript : MonoBehaviour
 
     public float scrollValue;
     private int currentRotation;
-    private Quaternion[] rotations;
+    public Quaternion[] rotations;
     Vector2 lastDirection;
     creationQueue plannedBuildings;
 
@@ -80,13 +80,18 @@ public class mouseScript : MonoBehaviour
         //check which direction the mouse is furthest from
         int numBuildings;
         Vector2Int mouseDirection = getMouseDirection(out numBuildings);
-        if(lastDirection == mouseDirection) //if we're in the same direction
+        if(lastDirection == mouseDirection || numBuildings == 1) //if we're in the same direction
         {
             plannedBuildings.setNumBuildings(numBuildings, hoverPrefab, hoverSprite.sprite);
             return;
         }
-        //get rid of all old buildings and add all the new ones
-        plannedBuildings.changeDirection(mouseDirection, numBuildings, hoverPrefab, hoverSprite.sprite);
+        else
+        {
+            //get rid of all old buildings and add all the new ones
+            lastDirection = mouseDirection;
+            plannedBuildings.changeDirection(mouseDirection, numBuildings, hoverPrefab, hoverSprite.sprite);
+        }
+        
         plannedBuildings.setValidColors();
     }
 
@@ -115,8 +120,8 @@ public class mouseScript : MonoBehaviour
         clickPosition = gridPosition;
         plannedBuildings.setPosition(gridPosition);
         lastDirection = Vector2.zero;
-        Debug.Log(mousePosition);
-        Debug.Log(clickPosition);
+        //Debug.Log(mousePosition);
+        //Debug.Log(clickPosition);
     }
 
     private void ClickEnd(InputAction.CallbackContext obj)
@@ -149,9 +154,10 @@ public class mouseScript : MonoBehaviour
     }
 
     public Vector2Int getMouseDirection(out int numBuildings){
+
         //get offset from middle of building
         Vector2 mouseOffset = mousePosition - clickPosition - new Vector2(currentSize * 0.5f, currentSize * 0.5f);
-        Debug.Log(mouseOffset + "" + clickPosition);
+        //Debug.Log(mouseOffset + "" + clickPosition);
 
         //if we are more horizontal than vertical
         if (Mathf.Abs(mouseOffset.x) > Mathf.Abs(mouseOffset.y))
@@ -183,13 +189,35 @@ public class mouseScript : MonoBehaviour
             hoverObject.SetActive(false);
             return;
         }
-        Debug.Log("Valid Prefab!");
+        //Debug.Log("Valid Prefab!");
         hoverObject.SetActive(true);
         currentBuilding = prefab;
         currentSize = currentBuilding.GetComponent<baseBuildingScript>().buildingSize;
         plannedBuildings.setBuildingSize(currentSize);
         sizeOffset = new Vector2Int(currentSize / 2, currentSize / 2);
         hoverSprite.sprite = currentBuilding.GetComponent<SpriteRenderer>().sprite;
+    }
+
+    //returns the correct rotation for a direction AND sets the current rotation to that direction
+    public Quaternion DirectionToRotation(Vector2Int direction)
+    {
+        if (direction == Vector2Int.right)
+        {
+            currentRotation = 0;
+            return rotations[0];
+        }
+        if (direction == Vector2Int.up)
+        {
+            currentRotation = 1;
+            return rotations[1];
+        }
+        if (direction == Vector2Int.left)
+        {
+            currentRotation = 2;
+            return rotations[2];
+        }
+        currentRotation = 3;
+        return rotations[3];
     }
 }
 
@@ -264,6 +292,7 @@ class creationQueue
     public void changeDirection(Vector2Int newDirection, int howMany, GameObject objToAdd, Sprite sprite)
     {
         direction = newDirection;
+        setRotation(mouseScript.controller.DirectionToRotation(direction));
         clearQueue();
         setNumBuildings(howMany, objToAdd, sprite);
     }

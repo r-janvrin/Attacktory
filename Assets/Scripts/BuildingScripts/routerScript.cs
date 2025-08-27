@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class routerScript : baseBuildingScript
 {
-    routerResource output;
+    [SerializeField] private float maxTime;
+    private float currentTime;
     Vector2Int[] directions;
     byte i;
     int current;
@@ -10,15 +11,15 @@ public class routerScript : baseBuildingScript
     public override void setupResources(Vector2Int bottomLeftPosition)
     {
         base.setupResources(bottomLeftPosition);
-        output = null;
+        resType = (sbyte)ResourceType.empty;
         directions = new Vector2Int[3];
     }
     public override bool AddResource(sbyte resourceType, Vector2Int direction)
     {
-        if (output != null) return false;
+        if (resType >= 0) return false; // if there's already something in the router
         resType = resourceType;
         //randomize the directions it can go in
-        current = (byte)Random.Range(0, 2); //0 or 1
+        i = (byte)Random.Range(0, 2); //0 or 1
         directions[0] = direction;
         if(direction.x != 0)//dir is left or right
         {
@@ -30,7 +31,7 @@ public class routerScript : baseBuildingScript
             directions[2 - i] = Vector2Int.right;
             directions[1 + i] = Vector2Int.left;
         }
-        current = (byte)Random.Range(0, 4);//random starting position
+        current = (byte)Random.Range(0, 3);//random starting position
         return true;
     }
 
@@ -41,25 +42,17 @@ public class routerScript : baseBuildingScript
 
     private void outputResources()
     {
+        currentTime += Time.deltaTime;
+        if (currentTime < maxTime) return;
         for (i = 0; i < 3; i++)
         {
-            if( buildingGrid.grid.addToPosition(position, resType, directions[current]) )
+            if ( buildingGrid.grid.addToPosition(position + directions[current], resType, directions[current]) )
             {
                 resType = -1;//empty
+                currentTime = 0;
                 return;
             }
             current = (current+1) % 3;
         }
-    }
-}
-
-class routerResource
-{
-    Vector2Int direction;
-    sbyte resourceType;
-    public routerResource(sbyte type, Vector2Int dir)
-    {
-        resourceType = type;
-        direction = dir;
     }
 }

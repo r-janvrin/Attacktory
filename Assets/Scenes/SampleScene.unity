@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 59069027}
   - component: {fileID: 59069026}
   m_Layer: 5
-  m_Name: BasicConveyor (12)
+  m_Name: Furnace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5918,7 +5918,7 @@ GameObject:
   - component: {fileID: 243842023}
   - component: {fileID: 243842022}
   m_Layer: 5
-  m_Name: BasicConveyor (13)
+  m_Name: Router
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5956,7 +5956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8464eb6905c5d8f499b8ecd470bd6b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSet: {fileID: 7885947346892435686, guid: 8c8c6f14aeec6a849907cf27fe9666e2, type: 3}
+  prefabToSet: {fileID: 2218406732412832673, guid: 7656aba0fdc7698499b1f534424d47f0, type: 3}
 --- !u!114 &243842023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8032,9 +8032,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1633913268}
+  - {fileID: 349212029}
   - {fileID: 1231992326}
   - {fileID: 89750754}
-  - {fileID: 349212029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8630,7 +8630,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6803873404882588446, guid: 55fc6bcc68bcf114eae283d1bcd1f621, type: 3}
+  m_Sprite: {fileID: 4837133371341156092, guid: d2c531a738ad0c146bbdcb954ffeed6f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
