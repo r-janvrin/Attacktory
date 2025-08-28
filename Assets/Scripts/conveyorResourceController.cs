@@ -13,7 +13,6 @@ public class conveyorResourceController : MonoBehaviour
         resourceType = resType;
         target = targetPos;
         speed = speedValue;
-
     }
 
     // Update is called once per frame

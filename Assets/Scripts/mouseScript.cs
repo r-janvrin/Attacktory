@@ -126,8 +126,9 @@ public class mouseScript : MonoBehaviour
 
     private void ClickEnd(InputAction.CallbackContext obj)
     {
-        hoverObject.SetActive(true);
         isMouseDown = false;
+        if (currentBuilding == null) return;
+        hoverObject.SetActive(true);
         //put all our planned buildings to the building manager
         Vector2Int tempPosition = clickPosition;
         for(int i = 0; i < plannedBuildings.numPlanned; i++)

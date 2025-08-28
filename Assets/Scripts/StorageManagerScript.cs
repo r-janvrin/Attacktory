@@ -6,9 +6,13 @@ using System;
 
 public class StorageManagerScript : MonoBehaviour
 {
+    //public static event Action<StorageManagerScript> OnResourceReceived;
+
     [HideInInspector] public static StorageManagerScript manager;
     int num_ids = 28;
-    public int[] stored_stuff;
+    [SerializeField] private GameObject[] ResourceDisplayObjects;
+    private TextMeshProUGUI[] ResourceTexts;
+    public int[] StoredResources;
     public int max;
     public TextMeshProUGUI UI_text;
  
@@ -16,17 +20,25 @@ public class StorageManagerScript : MonoBehaviour
 
 
     public void add_to_storage (sbyte store_id) {
-        if (stored_stuff[store_id] < max)
+        if (StoredResources[store_id] < max)
         {
-            stored_stuff[store_id] += 1;
+            StoredResources[store_id] += 1;
         }
+        //update the display for this resource
+        if (store_id >= ResourceDisplayObjects.Length) return;
+        ResourceDisplayObjects[store_id].SetActive(true);
+        ResourceTexts[store_id].SetText( StoredResources[store_id].ToString() );
+    }
+
+    public void updateDisplay(sbyte resourceID)
+    {
+
     }
 
     public void max_change (sbyte max_num) {
         max += max_num;
         for (int i = 0; i < num_ids; i += 1) {
-            stored_stuff[i] = Mathf.Min(stored_stuff[i], max);
-
+            StoredResources[i] = Mathf.Min(StoredResources[i], max);
         } 
         
     }
@@ -34,14 +46,17 @@ public class StorageManagerScript : MonoBehaviour
     void Awake ()
     {
         manager = this;
-        stored_stuff = new int[num_ids];
+        StoredResources = new int[num_ids];
         UI_text = UI_GameObject.GetComponent<TextMeshProUGUI>();
+        ResourceTexts = new TextMeshProUGUI[num_ids];
+        for(sbyte i = 0; i < ResourceDisplayObjects.Length; i++)
+        {
+            ResourceTexts[i] = ResourceDisplayObjects[i].GetComponentInChildren<TextMeshProUGUI>();
+            ResourceDisplayObjects[i].GetComponentInChildren<Image>().sprite = buildingGrid.grid.getResourceSprite(i);
+        }
     }
 
     public void Update() {
-        
         UI_text.SetText("it works");
-        
-
-}
+    }
 }
