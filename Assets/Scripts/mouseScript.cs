@@ -83,15 +83,13 @@ public class mouseScript : MonoBehaviour
         if(lastDirection == mouseDirection || numBuildings == 1) //if we're in the same direction
         {
             plannedBuildings.setNumBuildings(numBuildings, hoverPrefab, hoverSprite.sprite);
+            plannedBuildings.setValidColors();
             return;
         }
-        else
-        {
-            //get rid of all old buildings and add all the new ones
-            lastDirection = mouseDirection;
-            plannedBuildings.changeDirection(mouseDirection, numBuildings, hoverPrefab, hoverSprite.sprite);
-        }
-        
+
+        //get rid of all old buildings and add all the new ones
+        lastDirection = mouseDirection;
+        plannedBuildings.changeDirection(mouseDirection, numBuildings, hoverPrefab, hoverSprite.sprite);
         plannedBuildings.setValidColors();
     }
 
@@ -300,6 +298,7 @@ class creationQueue
 
     public void setValidColors()
     {
+        Debug.Log("setting colors for " + numPlanned);
         for(int i = 0; i < numPlanned; i++)
         {
             buildings[i].GetComponent<SpriteRenderer>().color = mouseScript.areaIsValid(BottomLeftPosition + direction * i * buildingSize, buildingSize) ? whiteColor : redColor;

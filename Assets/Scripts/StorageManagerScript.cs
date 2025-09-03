@@ -7,6 +7,7 @@ using System;
 public class StorageManagerScript : MonoBehaviour
 {
     //public static event Action<StorageManagerScript> OnResourceReceived;
+    [SerializeField] private float sizePerDisplay;
 
     [HideInInspector] public static StorageManagerScript manager;
     int num_ids = 28;
