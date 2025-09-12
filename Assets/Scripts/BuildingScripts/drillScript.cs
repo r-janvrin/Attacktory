@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public struct resourcePair
+[Serializable] public struct resourcePair
 {
     public byte quantity;
     public sbyte resourceType;

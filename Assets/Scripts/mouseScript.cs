@@ -131,7 +131,7 @@ public class mouseScript : MonoBehaviour
         Vector2Int tempPosition = clickPosition;
         for(int i = 0; i < plannedBuildings.numPlanned; i++)
         {
-            if(areaIsValid(tempPosition, currentSize)) buildingGrid.grid.createBuilding(tempPosition, currentBuilding, rotations[currentRotation]);
+            if(areaIsValid(tempPosition, currentSize)) buildingGrid.grid.createForCost(tempPosition, currentBuilding, rotations[currentRotation]);
             tempPosition = tempPosition + plannedBuildings.direction * currentSize;
         }
         plannedBuildings.clearQueue();
@@ -298,7 +298,6 @@ class creationQueue
 
     public void setValidColors()
     {
-        Debug.Log("setting colors for " + numPlanned);
         for(int i = 0; i < numPlanned; i++)
         {
             buildings[i].GetComponent<SpriteRenderer>().color = mouseScript.areaIsValid(BottomLeftPosition + direction * i * buildingSize, buildingSize) ? whiteColor : redColor;

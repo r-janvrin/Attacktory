@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a4b9e3be80b8541ba99d71dc77427e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingCost: {fileID: 11400000, guid: 834a6b4af0c800343bca5fcb492a0b03, type: 2}
   buildingSize: 1
   position: {x: 0, y: 0}
   health: 100

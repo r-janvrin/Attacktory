@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FactoryData", menuName = "Scriptable Objects/FactoryData")]

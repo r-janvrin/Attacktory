@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e140a3197d46d24c9525d0b0d94e17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 0}
+  buildingCost: {fileID: 11400000, guid: 6d091add681a06c43ae8761070df0871, type: 2}
   buildingSize: 3
   position: {x: 0, y: 0}
   health: 100

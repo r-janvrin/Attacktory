@@ -5,10 +5,7 @@ using UnityEngine;
 public class buildingGrid : MonoBehaviour
 {
     [HideInInspector] public static buildingGrid grid;
-    private int NUM_BUILDING_TYPES;
     public GameObject testingObject;
-    public GameObject conveyorObject;
-    public GameObject homeBaseObject;
 
     [HideInInspector] public TileDataManager tileManager;
     private baseBuildingScript[,] buildingArray;
@@ -29,13 +26,6 @@ public class buildingGrid : MonoBehaviour
     {
         //testing call - position, size, which building type, which specific building
         createBuilding(new Vector2Int(306, 294), testingObject, Quaternion.identity);
-        //createBuilding(new Vector2Int(304, 292), testingObject);
-        //createBuilding(new Vector2Int(306, 291), testingObject);
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    createBuilding(new Vector2Int(306 + i, 293), conveyorObject);
-        //}
-        //createBuilding(new Vector2Int(316, 293), homeBaseObject);
     }
     // Update is called once per frame
     void Update()
@@ -43,8 +33,18 @@ public class buildingGrid : MonoBehaviour
         
     }
 
+    public void createForCost(Vector2Int position, GameObject prefab, Quaternion rotation)
+    {
+        //make sure we actually have the resources to build it
+        if (!StorageManagerScript.manager.haveResources(prefab.GetComponent<baseBuildingScript>().buildingCost.cost)) return;
+        createBuilding(position, prefab, rotation);
+        //after creation, remove the resources we used to build it
+        StorageManagerScript.manager.removeResources(prefab.GetComponent<baseBuildingScript>().buildingCost.cost);
+    }
     public void createBuilding(Vector2Int position, GameObject prefab, Quaternion rotation)
     {
+        
+
         //create the game object & offset it by part of its size to centre the image
         byte size = prefab.GetComponent<baseBuildingScript>().buildingSize;
         GameObject tempObject = GameObject.Instantiate(prefab, new Vector3((float)position.x + size*0.5f, (float)position.y + size*0.5f, 0), rotation);

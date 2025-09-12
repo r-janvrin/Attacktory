@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class baseBuildingScript : MonoBehaviour
 {
+    public BuildingCost buildingCost;
     public byte buildingSize;
     [HideInInspector] public Vector2Int position;
     public float health;

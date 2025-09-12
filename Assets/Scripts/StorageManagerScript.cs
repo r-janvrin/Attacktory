@@ -35,6 +35,18 @@ public class StorageManagerScript : MonoBehaviour
         ResourceTexts[store_id].SetText( StoredResources[store_id].ToString() );
     }
 
+    public void add_qty_to_storage(sbyte store_id, int qty)
+    {
+        StoredResources[store_id] = Mathf.Min(max, StoredResources[store_id] + qty);
+        ResourceTexts[store_id].SetText(StoredResources[store_id].ToString());
+    }
+
+    public void remove_from_storage(sbyte store_id, int qty)
+    {
+        StoredResources[store_id] = Mathf.Max(0, StoredResources[store_id] - qty);
+        ResourceTexts[store_id].SetText(StoredResources[store_id].ToString());
+    }
+
     public void updateDisplayPositions()
     {
         int numRows = 0;
@@ -58,13 +70,11 @@ public class StorageManagerScript : MonoBehaviour
         for (int i = 0; i < num_ids; i += 1) {
             StoredResources[i] = Mathf.Min(StoredResources[i], max);
         } 
-        
     }
 
     void Awake ()
     {
         manager = this;
-
         StoredResources = new int[num_ids];
     }
 
@@ -76,14 +86,37 @@ public class StorageManagerScript : MonoBehaviour
         {
             ResourceDisplayObjects[i] = Instantiate(displayPrefab, displayPositionObject);
             ResourceTexts[i] = ResourceDisplayObjects[i].GetComponentInChildren<TextMeshProUGUI>();
-            Debug.Log(buildingGrid.grid.getResourceSprite(i) + " " + i);
             ResourceDisplayObjects[i].GetComponentInChildren<Image>().sprite = buildingGrid.grid.getResourceSprite(i);
             ResourceDisplayObjects[i].SetActive(false);
         }
         //TEST ADD EACH RESOURCE
-        for (sbyte i = 0; i < num_ids; i++) this.add_to_storage(i);
+        for (sbyte i = 0; i < num_ids; i++)
+        {
+            StoredResources[i] += 500;
+            add_to_storage(i);
+        }
     }
 
-    public void Update() {
+    public bool haveResources(costPair[] costs)
+    {
+        foreach(costPair cost in costs)
+        {
+            if (cost.quantity > StoredResources[(sbyte)cost.type])
+            {
+                Debug.Log("Not enough of " + cost.type);
+                Debug.Log("need:" + cost.quantity + "have" + StoredResources[(sbyte)cost.type]);
+                return false;
+            }
+        }
+        Debug.Log("We have enough");
+        return true;
+    }
+
+    public void removeResources(costPair[] costs)
+    {
+        foreach(costPair cost in costs)
+        {
+            remove_from_storage((sbyte)cost.type, cost.quantity);
+        }
     }
 }
