@@ -87,6 +87,7 @@ public class buildingGrid : MonoBehaviour
 
     public Sprite getResourceSprite(sbyte resource)
     {
+        if (resource >= resourceSprites.sprites.Length) return resourceSprites.sprites[0];
         return resourceSprites.sprites[resource];
     }
 
