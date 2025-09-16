@@ -103,12 +103,9 @@ public class StorageManagerScript : MonoBehaviour
         {
             if (cost.quantity > StoredResources[(sbyte)cost.type])
             {
-                Debug.Log("Not enough of " + cost.type);
-                Debug.Log("need:" + cost.quantity + "have" + StoredResources[(sbyte)cost.type]);
                 return false;
             }
         }
-        Debug.Log("We have enough");
         return true;
     }
 

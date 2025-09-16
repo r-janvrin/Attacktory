@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7241863882531393856}
   - component: {fileID: 8406381726882492646}
   - component: {fileID: 2551907641580027526}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,9 +59,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 6980824491120100151}
   - component: {fileID: 363359276767693862}
   - component: {fileID: 3415158094509878481}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2901007033428246765}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: StoneCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

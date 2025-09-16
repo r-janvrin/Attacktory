@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static Unity.Collections.AllocatorManager;
 using UnityEngine.EventSystems;
+using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 
 public class mouseScript : MonoBehaviour
 {
@@ -52,8 +54,11 @@ public class mouseScript : MonoBehaviour
     void Update()
     {
         isOverUI = EventSystem.current.IsPointerOverGameObject();
-        //check to see if scroll up or down and rotate based on that
-        scrollValue = scroll.action.ReadValue<float>();
+        //if we're not over the UI and not building hide hover
+        if (isOverUI || isMouseDown) hoverObject.SetActive(false);
+        else hoverObject.SetActive(true);
+            //check to see if scroll up or down and rotate based on that
+            scrollValue = scroll.action.ReadValue<float>();
         if (scrollValue > 0) ScrollUp();
         else if (scrollValue < 0) ScrollDown();
 
@@ -111,8 +116,8 @@ public class mouseScript : MonoBehaviour
 
     private void ClickStart(InputAction.CallbackContext obj)
     {
-        hoverObject.SetActive(false);
-        if (isOverUI || currentBuilding == null) return;//if its a UI click or no choice, don't build
+        //hoverObject.SetActive(false);
+        if (isOverUI || currentBuilding == null ) return;//if its a UI click or no choice, don't build
         //getting values of start of click
         isMouseDown = true;
         clickPosition = gridPosition;
